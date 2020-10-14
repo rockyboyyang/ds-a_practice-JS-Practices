@@ -24,10 +24,38 @@ ids.add(14)
 
 
 for(const element of ids) {
-    console.log(element)
+    // console.log(element)
 }
 
-console.log(ids.has(1))
+// console.log(ids.has(1))
 
 ids.delete(1)
-console.log(ids)
+// console.log(ids)
+
+/*
+MAPS
+- Ordered key-value pairs of data
+- Element access via key
+- iterable(= you can use the for-of loop )
+- keys are unique, values are not
+- keys can be anything (incl. reference values like arrays)
+- Pure data storage, optimized for data access
+*/
+
+let map = new Map()
+
+map.set('average', 1.53)
+map.set('lastResult', null)
+
+const country = {name: 'USA', population: 82};
+map.set(country, 0.89)
+// console.log(map)
+
+for(const el of map) {
+    // console.log(el)
+}
+
+map.set('average', 10)
+// console.log(map.get('average'))
+map.delete(country)
+console.log(map)
