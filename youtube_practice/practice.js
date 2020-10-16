@@ -90,11 +90,95 @@ class LinkedList {
         }
         this.length++
     }
+
+    prepend(value) {
+        const newNode = new Node(value)
+
+        if(this.head) {
+            newNode.next = this.head
+        }
+        this.head = newNode
+        if(!this.tail) {
+            this.tail = newNode
+        }
+        this.length++
+
+    }
+
+    insertAfter(value, afterValue) {
+        const existingNode = this.find(afterValue);
+
+        if(existingNode) {
+            const newNode = new Node(value)
+            existingNode.next = newNode;
+        }
+    }
+
+    find(value) {
+        if(!this.head) {
+            return null;
+        }
+
+        let currentNode = this.head;
+        while(currentNode) {
+            if(currentNode.value === value) {
+                return currentNode;
+            }
+            currentNode = currentNode.next;
+        }
+
+        return null;
+    }
+
+    delete(value) { // deletes all occurances, not just one
+        if(!this.head) {
+            return null;
+        }
+
+        while(this.head && this.head.value === value) {
+            this.head = this.head.next;
+        }
+
+        let currentNode = this.head
+        while(currentNode.next) {
+            if(currentNode.next.value === value) {
+                currentNode.next = currentNode.next.next
+            } else {
+                currentNode = currentNode.next
+            }
+        }
+
+        if(this.tail.value === value) {
+            this.tail = currentNode
+        }
+
+        this.length--
+    }
+
+    toArray() {
+        const elements = [];
+        
+        let currentNode = this.head;
+        while(currentNode) {
+            elements.push(currentNode);
+            currentNode = currentNode.next 
+        }
+
+        return elements
+    }
 }
 
 const linkedList1 = new LinkedList();
 linkedList1.append(20)
 linkedList1.append(32)
+linkedList1.append(10)
 linkedList1.append(90)
+linkedList1.prepend(10)
 
-console.log(linkedList1.length)
+console.log(linkedList1.toArray())
+linkedList1.delete(10)
+linkedList1.insertAfter(22, 32)
+console.log(linkedList1.toArray())
+// console.log(linkedList1.find(20))
+
+
