@@ -58,4 +58,43 @@ for(const el of map) {
 map.set('average', 10)
 // console.log(map.get('average'))
 map.delete(country)
-console.log(map)
+// console.log(map)
+
+/* 
+Linked List
+
+*/
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.next = null
+    }
+}
+
+class LinkedList {
+    constructor() {
+        this.head = null; // First element of the list
+        this.tail = null; // Last element of the list
+        this.length = 0;
+    }
+
+    append(value) {
+        const newNode = new Node(value)
+
+        if(this.tail) {
+            this.tail.next = newNode;
+        }
+        this.tail = newNode
+        if(!this.head) {
+            this.head = newNode;
+        }
+        this.length++
+    }
+}
+
+const linkedList1 = new LinkedList();
+linkedList1.append(20)
+linkedList1.append(32)
+linkedList1.append(90)
+
+console.log(linkedList1.length)
