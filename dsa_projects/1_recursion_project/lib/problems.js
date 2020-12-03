@@ -192,9 +192,9 @@ function fileFinder(directories, targetFile, exist = false) {
     return exist
 }
 
-console.log(fileFinder(desktop, 'app_academy_logo.svg'));     // => true
-console.log(fileFinder(desktop, 'everlong.flac'));            // => true
-console.log(fileFinder(desktop, 'sequoia.jpeg'));             // => false
+// console.log(fileFinder(desktop, 'app_academy_logo.svg'));     // => true
+// console.log(fileFinder(desktop, 'everlong.flac'));            // => true
+// console.log(fileFinder(desktop, 'sequoia.jpeg'));             // => false
 
 
 // Write another function, pathFinder(directories, targetFile), that returns the path that contains the targetFile.
@@ -217,7 +217,9 @@ function pathFinder(directories, targetFile, path = '') {
     }
     return path
 }
-
+console.log(pathFinder(desktop, 'app_academy_logo.svg'));     // => true
+console.log(pathFinder(desktop, 'everlong.flac'));            // => true
+console.log(pathFinder(desktop, 'sequoia.jpeg'));  
 
 module.exports = {
     lucasNumber,
