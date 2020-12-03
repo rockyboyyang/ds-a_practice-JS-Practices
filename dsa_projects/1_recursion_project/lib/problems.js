@@ -17,9 +17,11 @@
 // lucasNumber(5)   // => 11
 // lucasNumber(9)   // => 76
 function lucasNumber(n) {
+    if(n === 0) return 2
+    if(n === 1) return 1
 
+    return lucasNumber(n - 1) + lucasNumber (n - 2)
 }
-
 
 // Write a function, sumArray(array), that takes in an array of numbers.
 // The function should return the total sum of the elements.
@@ -32,10 +34,15 @@ function lucasNumber(n) {
 // sumArray([5])            // => 5
 // sumArray([5, 2])         // => 7
 // sumArray([4, 10, -1, 2]) // => 15
-function sumArray(array) {
-
+function sumArray(array, i = 0) {
+    if(array.length === i) return 0
+    let sum = 0;
+    sum += array[i]
+    let recurSum = sumArray(array, i + 1)
+    return sum + recurSum
 }
 
+// console.log(sumArray([])) // => 15
 
 // Write a function, reverseString(str), that takes in a string.
 // The function should return the string with it's characters in reverse order.
@@ -48,9 +55,15 @@ function sumArray(array) {
 // reverseString("c")           // => "c"
 // reverseString("internet")    // => "tenretni"
 // reverseString("friends")     // => "sdneirf"
-function reverseString(str) {
+function reverseString(str, i = 0) {
+    if(str.length === i) return ''
+    let finStr = ''
+    finStr += str[str.length - 1 - i]
 
+    let recurStr = reverseString(str, i + 1)
+    return finStr += recurStr
 }
+// console.log(reverseString("friends"))     // => "sdneirf"
 
 
 // Write a function, pow(base, exponent), that takes in two numbers.
@@ -70,8 +83,22 @@ function reverseString(str) {
 // pow(3, 4)    // => 81
 // pow(2, -5)   // => 0.03125
 function pow(base, exponent) {
+    if(exponent === 0) return 1
+    if(exponent === 1) return base
 
+    let isExpNeg = false;
+    if(exponent < 0) {
+        isExpNeg = true
+        exponent *= -1
+    }
+
+    let total = pow(base, exponent - 1) * base
+
+    if(isExpNeg) return 1 / total
+    else return total
 }
+// console.log(pow(2, 5))    // => 32
+
 
 
 // A 1-dimensional array is also known as a flattened array.
@@ -103,51 +130,71 @@ function pow(base, exponent) {
 //     2-dimensional array: [['some data']]
 //     3-dimensional array: [[['some data']]]
 function flatten(data) {
-
+    if(!Array.isArray(data)) return [data]
+    let finArr = []
+    for(let i = 0; i < data.length; i++) {
+        finArr.push(...flatten(data[i]))
+    }
+    return finArr
 }
-
+array_1 = [1, 2, [[3, 4], [5, [6]]], [7, 8]]
+// console.log(flatten(array_1))
 // Write a function, fileFinder(directories, targetFile), that accepts an object representing directories and a string respresenting a filename.
 // The function should return true, if the file is contained anywhere in the given directories.
 // Note that directory names will begin with '/', but file names will not.
 // 
 // Example:
 //
-// let desktop = {
-//     '/images': {
-//         'app_academy_logo.svg': null,
-//         '/parks': {
-//             'yosemite.jpeg': null,
-//             'acadia.jpeg': null,
-//             'yellowstone.png': null
-//         },
-//         '/pets': {
-//             'trixie_lou.jpeg': null,
-//             'rolo.jpeg': null,
-//             'opal.jpeg': null,
-//             'diana.jpeg': null,
-//         }
-//     },
-//     '/music': {
-//         'hey_programmers.mp3': null,
-//         '/genres': {
-//             '/rock': {
-//                 'everlong.flac': null,
-//                 'livin_on_a_prayer.mp3': null
-//             },
-//             '/hip_hop': {
-//                 'express_yourself.wav': null,
-//                 'ny_state_of_mind.mp3': null
-//             }
-//         }
-//     }
-// };
+let desktop = {
+    '/images': {
+        'app_academy_logo.svg': null,
+        '/parks': {
+            'yosemite.jpeg': null,
+            'acadia.jpeg': null,
+            'yellowstone.png': null
+        },
+        '/pets': {
+            'trixie_lou.jpeg': null,
+            'rolo.jpeg': null,
+            'opal.jpeg': null,
+            'diana.jpeg': null,
+        }
+    },
+    '/music': {
+        'hey_programmers.mp3': null,
+        '/genres': {
+            '/rock': {
+                'everlong.flac': null,
+                'livin_on_a_prayer.mp3': null
+            },
+            '/hip_hop': {
+                'express_yourself.wav': null,
+                'ny_state_of_mind.mp3': null
+            }
+        }
+    }
+};
 //
 // fileFinder(desktop, 'app_academy_logo.svg');     // => true
 // fileFinder(desktop, 'everlong.flac');            // => true
 // fileFinder(desktop, 'sequoia.jpeg');             // => false
-function fileFinder(directories, targetFile) {
 
+function fileFinder(directories, targetFile, exist = false) {
+    // console.log(directories)
+    if(exist) return true
+    if(directories === null) return false
+
+    for(let key in directories) {
+        // console.log(key === targetFile)
+        if (key === targetFile) exist = true
+        exist = fileFinder(directories[key], targetFile, exist)
+    }
+    return exist
 }
+
+console.log(fileFinder(desktop, 'app_academy_logo.svg'));     // => true
+console.log(fileFinder(desktop, 'everlong.flac'));            // => true
+console.log(fileFinder(desktop, 'sequoia.jpeg'));             // => false
 
 
 // Write another function, pathFinder(directories, targetFile), that returns the path that contains the targetFile.
@@ -159,8 +206,16 @@ function fileFinder(directories, targetFile) {
 // pathFinder(desktop, 'trixie_lou.jpeg'));     // => '/images/pets/trixie_lou.jpeg'
 // pathFinder(desktop, 'everlong.flac'));       // => '/music/genres/rock/everlong.flac'
 // pathFinder(desktop, 'honeybadger.png'));     // => null
-function pathFinder(directories, targetFile) {
+function pathFinder(directories, targetFile, path = '') {
+    // console.log(directories)
+    if (directories === null) return null
 
+    for (let key in directories) {
+        path += key
+        if (key === targetFile) return path
+        path += fileFinder(directories[key], targetFile, path)
+    }
+    return path
 }
 
 
