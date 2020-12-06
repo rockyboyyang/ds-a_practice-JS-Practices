@@ -54,11 +54,11 @@ function minChange(coins, amount, memo = {}) {
         }
     });
 
-    memo[amount] = Math.min(...numCoins);
+    memo[amount] = numCoins.length;
     return memo[amount]
 }
 
-// console.log(minChange([1, 2, 5], 11))         // => 3, because 5 + 5 + 1 = 11
+console.log(minChange([1, 2, 5], 11))         // => 3, because 5 + 5 + 1 = 11
 
 module.exports = {
     lucasNumberMemo,
