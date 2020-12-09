@@ -48,6 +48,36 @@ The algorithm for merge sort is actually really simple.
 //     return merge(sortedLeft, sortedRight)
 // }
 
+const merge = (arr1, arr2) => {
+    let merged = [];
 
+    while(arr1.length || arr2.length) {
+        let next;
+        let arr1FirstEle = arr1.length ? arr1[0] : Infinity
+        let arr2FirstEle = arr2.length ? arr2[0] : Infinity
+
+        if(arr1FirstEle > arr2FirstEle) next = arr2.shift()
+        else next = arr1.shift()
+
+        merged.push(next)
+    }
+
+    return merged
+}
+
+const mergeSort = (array) => {
+    if(array.length <= 1) return array
+    
+    const midIdx = Math.floor(array.length / 2)
+
+    const leftArr = array.slice(0, midIdx)
+    const rightArr = array.slice(midIdx)
+
+    const leftMerge = mergeSort(leftArr)
+    const rightMerge = mergeSort(rightArr)
+
+    return merge(leftMerge, rightMerge)
+}
 
 console.log(mergeSort([10, -2, 1, 0, -14, 4, 9, 6, 14, -40, 43, 41, -21]))
+// console.log(merge([1,3,5,7,9], [2,4,6,8,10]))
