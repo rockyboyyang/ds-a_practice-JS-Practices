@@ -17,12 +17,23 @@ position in the sorted region.
 //     [arr[idx1], arr[idx2]] = [arr[idx2], arr[idx1]]
 // }
 
-function insertionSort(arr) {
-    let len = arr.length;
-    for(let i = 1; i < len; i++) {
+function insertionSort(array) {
+    let len = array.length;
 
+    for (let i = 1; i < len; i++) {
+        let currNum = array[i]
+        let insertionIdx;
+
+        for (let j = i - 1; j >= 0 && currNum < array[j]; j--) {
+            array[j + 1] = array[j]
+            insertionIdx = j
+        }
+        if(insertionIdx !== undefined) array[insertionIdx] = currNum
     }
+
+    console.log(array)
+    return array
 }
 
-let arr = [9, 41, 2, 13, 43, 7, 5, -12, 50, 32];
+let arr = [8, 5, 2, 9, 5, 6, 3];
 console.log(insertionSort(arr))
