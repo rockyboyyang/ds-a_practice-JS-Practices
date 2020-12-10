@@ -1,0 +1,27 @@
+
+
+const input = [10, -2, 1, 0, -14, 4, 9, 6, 14, -40, 43, 41, -21]
+
+// WITH FILTER METHOD
+const quickSort = (arr) => {
+    if(arr.length <= 1) return arr
+
+    let pivot = arr.shift();
+    // let left = arr.filter(el => el < pivot);
+    // let right = arr.filter(el => el >= pivot);
+
+    let left = []
+    let right = []
+
+    arr.forEach(el => {
+        if(el < pivot) left.push(el)
+        else if (el >= pivot) right.push(el)
+    })
+
+    let leftSorted = quickSort(left)
+    let rightSorted = quickSort(right)
+
+    return [...leftSorted, pivot, ...rightSorted]
+}
+
+console.log(quickSort(input))
