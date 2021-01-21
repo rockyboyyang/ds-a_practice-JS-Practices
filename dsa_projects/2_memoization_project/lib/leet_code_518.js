@@ -1,7 +1,7 @@
 // Work through this problem on https://leetcode.com/problems/coin-change-2/ and use the specs given there.
 // Feel free to use this file for scratch work.
-
-var change = function (amount, coins, memo = {}) {
+let memo = {}
+var change = function (amount, coins) {
     let key = amount + '-' + coins;
     if(key in memo) return memo[key]
     if(amount === 0) return 1;
@@ -10,11 +10,18 @@ var change = function (amount, coins, memo = {}) {
 
     let total = 0;
     for(let qty = 0; qty * currentCoin <= amount; qty++) {
-        total += change(amount - qty * currentCoin, coins.slice(0, -1), memo);
+        // coins = [1]
+        // amount = 1
+        // currentCoin =  coins.lastIdx = 1;
+        // qty = 0; 0 * 1 <= 1
+        console.log('qty', qty * currentCoin)
+        total += change(amount - qty * currentCoin, coins.slice(0, -1));
+        // change(0, [1,2])
     }
 
     memo[key] = total
     return memo[key]
 };
 
-console.log(change(5, [1,2,5]))
+console.log(change(1, [1]))
+// console.log(memo)
