@@ -60,7 +60,16 @@
 // Let's code!
 // -----------
 function hasCycle(linkedList) {
-  // TODO: Implement the hasCycle function!
+  let nodeTracker = new Set()
+  let current = linkedList.head
+
+  while(current) {
+    if(nodeTracker.has(current.value)) return true
+    nodeTracker.add(current.value)
+    current = current.next
+  }
+
+  return false
 
 }
 

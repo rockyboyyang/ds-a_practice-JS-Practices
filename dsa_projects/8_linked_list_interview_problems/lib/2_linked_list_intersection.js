@@ -39,8 +39,30 @@
 // -----------
 // Let's code!
 // -----------
+function checkForIntersection(list, hash) {
+  let current = list.head 
+  while(current) {
+    if(!hash[current.value]) {
+      hash[current.value] = 1
+    } else {
+      hash[current.value] = current
+    }
+
+    current = current.next
+  }
+}
+
 function linkedListIntersection(list1, list2) {
-  // TODO: Implement the hasCycle function!
+  let hash = {}
+
+  checkForIntersection(list1, hash)
+  checkForIntersection(list2, hash)
+
+  for(let key in hash) {
+    if(hash[key] !== 1) return hash[key]
+  }
+
+  return null
 
 }
 
