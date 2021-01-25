@@ -21,11 +21,48 @@
 // -----------
 
 class Node {
-
+    constructor(val) {
+        this.value = val
+        this.next = null
+    }
 }
 
 class Stack {
+    constructor() {
+        this.top = null
+        this.bottom = null
+        this.length = 0;
+    }
 
+    push(val) {
+        let newNode = new Node(val)
+        if(!this.top) {
+            this.top = newNode
+            this.bottom = newNode 
+        } else {
+            newNode.next = this.top
+            this.top = newNode
+        }
+        this.length ++
+        return this.length
+    }
+
+    pop() {
+        let removedNode = this.top;
+        if(!this.length) return null
+        else if(this.length === 1) {
+            this.top = null
+            this.bottom = null
+        } else {
+            this.top = this.top.next
+        }
+        this.length --
+        return removedNode.value
+    }
+
+    size() {
+        return this.length
+    }
 }
 
 exports.Node = Node;
