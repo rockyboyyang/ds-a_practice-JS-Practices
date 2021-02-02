@@ -1,30 +1,56 @@
-function inOrderArray(root, inOrderArr = []) {
-    // if(!root) return []
-    // // root = d
-    // inOrderArray(root.left, inOrderArr);
-    // inOrderArr.push(...root.val);
-    // inOrderArray(root.right, inOrderArr);
-    
-    // return inOrderArr
-
-    if (!root) return [];
+function inOrderArray(root) {
+    if(!root) return [];
 
     return [
         ...inOrderArray(root.left),
         root.val,
-        ...inOrderArray(root.right),
-    ];
-    
+        ...inOrderArray(root.right)
+    ]
+
 }
 
-function postOrderArray(root, postOrderArr = []) {
-    if (!root) return []
+function postOrderArray(root) {
+    if (!root) return [];
 
-    postOrderArray(root.left, postOrderArr)
-    postOrderArray(root.right, postOrderArr)
-    postOrderArr.push(root.val)
+    return [
+        ...postOrderArray(root.left),
+        ...postOrderArray(root.right),
+        root.val,
+    ]
+}
 
-    return postOrderArr
+
+module.exports = {
+    inOrderArray,
+    postOrderArray
+};
+
+
+// if(!root) return []
+    // // root = d
+    // inOrderArray(root.left, inOrderArr);
+    // inOrderArr.push(...root.val);
+    // inOrderArray(root.right, inOrderArr);
+
+    // return inOrderArr
+
+    // if (!root) return [];
+
+    // return [
+    //     ...inOrderArray(root.left),
+    //     root.val,
+    //     ...inOrderArray(root.right),
+    // ];
+
+
+
+// if (!root) return []
+
+    // postOrderArray(root.left, postOrderArr)
+    // postOrderArray(root.right, postOrderArr)
+    // postOrderArr.push(root.val)
+
+    // return postOrderArr
 
     // if (!root) return [];
 
@@ -33,10 +59,3 @@ function postOrderArray(root, postOrderArr = []) {
     //     ...postOrderArray(root.right),
     //     root.val,
     // ];
-}
-
-
-module.exports = {
-    inOrderArray,
-    postOrderArray
-};
