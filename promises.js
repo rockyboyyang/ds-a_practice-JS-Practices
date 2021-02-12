@@ -70,27 +70,60 @@
 // })
 
 
-const recordVideoOne = new Promise((resolve, reject) => {
-    resolve('Video 1 Recorded')
-})
+// const recordVideoOne = new Promise((resolve, reject) => {
+//     resolve('Video 1 Recorded')
+// })
 
-const recordVideoTwo = new Promise((resolve, reject) => {
-    resolve('Video 2 Recorded')
-})
+// const recordVideoTwo = new Promise((resolve, reject) => {
+//     resolve('Video 2 Recorded')
+// })
 
-const recordVideoThree = new Promise((resolve, reject) => {
-    resolve('Video 3 Recorded')
-})
+// const recordVideoThree = new Promise((resolve, reject) => {
+//     resolve('Video 3 Recorded')
+// })
 
 
-// .all runs all promises at the same time
+// // .all runs all promises at the same time
 
-// .race returns the first promise that is completes
+// // .race returns the first promise that is completes
 
-Promise.race([
-    recordVideoOne,
-    recordVideoTwo,
-    recordVideoThree
-]).then((messages) => {
-    console.log(messages) // [ 'Video 1 Recorded', 'Video 2 Recorded', 'Video 3 Recorded' ]
-})
+// Promise.race([
+//     recordVideoOne,
+//     recordVideoTwo,
+//     recordVideoThree
+// ]).then((messages) => {
+//     console.log(messages) // [ 'Video 1 Recorded', 'Video 2 Recorded', 'Video 3 Recorded' ]
+// })
+
+
+
+function job() {
+    return new Promise(function (resolve, reject) {
+        // resolve()
+        reject();
+    });
+}
+
+let promise = job();
+
+promise
+
+    .then(function () {
+        console.log('Success 1');
+    })
+
+    .then(function () {
+        console.log('Success 2');
+    })
+
+    .then(function () {
+        console.log('Success 3');
+    })
+
+    .catch(function () {
+        console.log('Error 1');
+    })
+
+    .then(function () {
+        console.log('Success 4');
+    })
