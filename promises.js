@@ -97,33 +97,53 @@
 
 
 
-function job() {
-    return new Promise(function (resolve, reject) {
-        // resolve()
-        reject();
-    });
-}
+// function job() {
+//     return new Promise(function (resolve, reject) {
+//         // resolve()
+//         reject();
+//     });
+// }
 
-let promise = job();
+// let promise = job();
 
-promise
+// promise
 
-    .then(function () {
-        console.log('Success 1');
-    })
+//     .then(function () {
+//         console.log('Success 1');
+//     })
 
-    .then(function () {
-        console.log('Success 2');
-    })
+//     .then(function () {
+//         console.log('Success 2');
+//     })
 
-    .then(function () {
-        console.log('Success 3');
-    })
+//     .then(function () {
+//         console.log('Success 3');
+//     })
 
-    .catch(function () {
-        console.log('Error 1');
-    })
+//     .catch(function () {
+//         console.log('Error 1');
+//     })
 
-    .then(function () {
-        console.log('Success 4');
-    })
+//     .then(function () {
+//         console.log('Success 4');
+//     })
+
+let allGood = true;
+
+let fetchSomeData = new Promise((res, rej) => {
+    if(allGood) {
+        res({
+            id: 1,
+            message: 'nice work!'
+        })
+    } else {
+        rej("error fetching data!")
+    }
+})
+
+// Consuming a Promise
+fetchSomeData.then(fetchedData => {
+    console.log('then:', fetchedData)
+}).catch(err => {
+    console.error('catch:', err)
+})
